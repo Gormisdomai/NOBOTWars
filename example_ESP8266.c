@@ -43,7 +43,7 @@ void loop() {
     Serial.println("ON signal recieved");
   }
 
-  s = "HTML PAGE goes here"
+  s = "HTML page goes here"
 
   client.flush(); //clear previous info in the stream
   client.print(s); // Send the response to the client

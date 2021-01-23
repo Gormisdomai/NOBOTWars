@@ -23,7 +23,7 @@ void loop() {
 
   WiFiClient client = server.available();
   if (!client) {
-    return;
+    return;  String s = "HTML page goes here";
   }
 
   //Looking under the hood
@@ -43,7 +43,7 @@ void loop() {
     Serial.println("ON signal recieved");
   }
 
-  s = "HTML page goes here"
+  String s = "HTML page goes here";
 
   client.flush(); //clear previous info in the stream
   client.print(s); // Send the response to the client

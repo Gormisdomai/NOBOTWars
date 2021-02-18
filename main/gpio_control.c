@@ -1,6 +1,9 @@
 /* 
  * library for the Nobot's gpio control
 */
+#ifndef gpio_control
+#define gpio_control
+
 #include <arduino.h>
 
 #define DEBUG_LED_0 (14)
@@ -58,3 +61,5 @@ float read_bat_voltage()
     return (float)reading / BAT_SENSE_GAIN;
     // return (float)reading / BAT_SENSE_GAIN;
 }
+
+#endif

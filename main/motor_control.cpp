@@ -3,7 +3,6 @@
 */
 #include <Arduino.h>
 #include <Wire.h>
-#include "motor_control.h"
 
 // address: 0100ABC where A=A0, B=A1, C=A2
 #define GPIO_EXPANDER_ADDRESS (0b0100000)
@@ -26,7 +25,6 @@ byte init_motor_interface()
 
     return Wire.endTransmission();
 }
-
 
 /*
  * writes a new output state byte for the motor control signals

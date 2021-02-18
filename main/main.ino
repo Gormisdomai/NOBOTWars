@@ -12,12 +12,76 @@ void setup()
     Serial.begin(115200);
 }
 
-byte counter = 0;
+char input_buff[10];
+bool led1 = false;
+bool led2 = false;
+bool led3 = false;
 
 void loop()
 {
-    Serial.print(motor_write(counter));
-    Serial.print("\t");
-    Serial.println(counter++);
+    while (!Serial.available());
+    byte index = 0;
+    while (Serial.available() > 0)
+    {
+      input_buff[index++] = (char)Serial.read();
+      delay(10);
+    }
+    index--;
+    while (index < sizeof(input_buff))
+    {
+      input_buff[index++] = ' ';
+    }
+    Serial.print("command: ");
+    Serial.println(input_buff);
+    Serial.print("outcome: ");
+    switch(input_buff[0])
+    {
+      case 's':
+        motor_write(0xFF);
+        Serial.println("stop");
+        break;
+      case 'f':
+        motor_write(0x9F);
+        Serial.println("forward");
+        break;
+      case 'b':
+        motor_write(0x6F);
+        Serial.println("backward");
+        break;
+      case 'l':
+        motor_write(0x5F);
+        Serial.println("left");
+        break;
+      case 'r':
+        motor_write(0xAF);
+        Serial.println("right");
+        break;
+      case 'c':
+        motor_write(0x0F);
+        Serial.println("coast");
+        break;
+      case 'v':
+        Serial.print("Vbat: ");
+        Serial.print(read_bat_voltage());
+        Serial.println("V");
+        break;
+      case 'q':
+        led1 = !led1;
+        Serial.println(led1);
+        digitalWrite(DEBUG_LED_0, led1);
+        break;
+      case 'w':
+        led2 = !led2;
+        Serial.println(led2);
+        digitalWrite(DEBUG_LED_1, led2);
+        break;
+      case 'e':
+        led3 = !led3;
+        Serial.println(led3);
+        digitalWrite(DEBUG_LED_2, led3);
+        break;
+      default:
+        Serial.println("unrecognised!");
+    }
     delay(100);
 }

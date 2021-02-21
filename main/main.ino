@@ -2,7 +2,7 @@
  * top level file for the Nobot
  */
 #include "gpio_control.c"
-#include "wifi_read.cpp"
+#include "wifi_read.h"
 #include "motor_control.h"
 
 void setup()
@@ -43,7 +43,7 @@ void loop()
 
     // comment/uncomment to enable wifi control
     char command = wifi_server_loop();
-    if (command == '') return;
+    if (command == '_') return;
     switch(command)
     {
       case 's':

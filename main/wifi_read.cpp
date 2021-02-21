@@ -2,13 +2,10 @@
  * library for the Nobot's wifi interface
 */
 
-#ifndef wifi_read
-#define wifi_read
 #include <ESP8266WiFi.h>
 
 #define CONNECTION_TIMEOUT (500)
 
-s
 WiFiServer server(80); //Initialize the server on Port 80
 
 /*
@@ -44,7 +41,7 @@ char wifi_server_loop()
 {
   WiFiClient client = server.available();
   if (!client) {
-    return '';
+    return '_';
   }
 
   Serial.println("Somebody has connected :)");
@@ -52,12 +49,12 @@ char wifi_server_loop()
   //Close the connection after a timemout to handle if the packet is dropped https://forum.arduino.cc/index.php?topic=480572.0
   long startTime = millis();
   while(!client.available()){
-    if (millis() > startTime + CONNECTION_TIMEOUT) return;
+    if (millis() > startTime + CONNECTION_TIMEOUT) return '_';
   }
 
   Serial.println("Client is available");
 
-  char command //this will be the value we return
+  char command; //this will be the value we return
   
   //Read what the browser has sent into a String class and print the request to the monitor
   //Read until an explicit character (!), otherwise it will hang waiting for a null character until timeout, see: https://forum.arduino.cc/index.php?topic=529440.30
@@ -69,6 +66,7 @@ char wifi_server_loop()
   Serial.println(request);
 
   // Handle the Request
+  String s = "";
 
   if (request.indexOf("/OFF") != -1){
     Serial.println("OFF signal recieved"); 
@@ -80,7 +78,7 @@ char wifi_server_loop()
     Serial.println("ON signal recieved");
     
     s = "<h1><a href='/OFF!'>click here to turn OFF! </a></h1>";
-    command = 'f'
+    command = 'f';
   }
 
 
@@ -91,7 +89,5 @@ char wifi_server_loop()
   //client.print(battery_percentage);
   Serial.println("Client disonnected");
 
-  return command
+  return command;
 }
-
-#endif

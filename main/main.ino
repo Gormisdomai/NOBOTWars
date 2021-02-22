@@ -7,11 +7,12 @@
 
 void setup()
 {
+    Serial.begin(115200);
     init_debug_leds();
     init_bat_sense();
     init_motor_interface();
     init_wifi_server();
-    Serial.begin(115200);
+    
 }
 
 char input_buff[10];

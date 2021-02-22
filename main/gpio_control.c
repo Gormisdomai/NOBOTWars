@@ -16,7 +16,7 @@
 #define BAT_SENSE_R2_KOHMS (float)(39)
 #define BAT_RESISTOR_GAIN (BAT_SENSE_R1_KOHMS/(BAT_SENSE_R1_KOHMS + BAT_SENSE_R2_KOHMS))
 #define ADC_STEPS (1024)
-#define FUDGE_FACTOR (float)(1.02) //I should probably have used sense resistors with a better tolerance!!
+#define FUDGE_FACTOR (float)(1.0) //I should probably have used sense resistors with a better tolerance!!
 #define BAT_SENSE_GAIN (BAT_RESISTOR_GAIN * ADC_STEPS * FUDGE_FACTOR)
 
 /*

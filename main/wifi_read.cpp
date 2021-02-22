@@ -28,8 +28,8 @@ void init_wifi_server() {
   IPAddress HTTPS_ServerIP = WiFi.localIP();
   */
   server.begin(); // Start the HTTP Server
-  
-  Serial.print("Server IP is: "); // Print the IP to the monitor window
+  delay(500);
+  Serial.print("\nServer IP is: "); // Print the IP to the monitor window
   Serial.println(HTTPS_ServerIP);
 }
 

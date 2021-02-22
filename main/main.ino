@@ -2,14 +2,17 @@
  * top level file for the Nobot
  */
 #include "gpio_control.c"
+#include "wifi_read.h"
 #include "motor_control.h"
 
 void setup()
 {
+    Serial.begin(115200);
     init_debug_leds();
     init_bat_sense();
     init_motor_interface();
-    Serial.begin(115200);
+    init_wifi_server();
+    
 }
 
 char input_buff[10];
@@ -19,6 +22,8 @@ bool led3 = false;
 
 void loop()
 {
+    // comment/uncomment to enable serial control
+    /*
     while (!Serial.available());
     byte index = 0;
     while (Serial.available() > 0)
@@ -34,7 +39,13 @@ void loop()
     Serial.print("command: ");
     Serial.println(input_buff);
     Serial.print("outcome: ");
-    switch(input_buff[0])
+    char command = input_buff[0];
+    */
+
+    // comment/uncomment to enable wifi control
+    char command = wifi_server_loop();
+    if (command == '_') return;
+    switch(command)
     {
       case 's':
         motor_write(0xFF);
@@ -83,5 +94,4 @@ void loop()
       default:
         Serial.println("unrecognised!");
     }
-    delay(100);
 }

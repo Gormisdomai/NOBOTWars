@@ -2,6 +2,7 @@
  * top level file for the Nobot
  */
 #include "gpio_control.c"
+#include "ota.h"
 #include "wifi_read.h"
 #include "motor_control.h"
 
@@ -12,6 +13,7 @@ void setup()
     init_bat_sense();
     init_motor_interface();
     init_wifi_server();
+    init_ota();
     
 }
 
@@ -22,6 +24,8 @@ bool led3 = false;
 
 void loop()
 {
+    ota_loop();
+  
     // comment/uncomment to enable serial control
     /*
     while (!Serial.available());

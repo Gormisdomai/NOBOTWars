@@ -3,6 +3,7 @@
 */
 
 #include <ESP8266WiFi.h>
+#include "credentials.c"
 
 #define CONNECTION_TIMEOUT (500)
 
@@ -16,21 +17,25 @@ void init_wifi_server() {
   // Comment/uncomment this code to run in soft AP mode
   WiFi.mode(WIFI_AP); //Our ESP8266-12E is an AccessPoint
   WiFi.softAP("I AM NOBO", "12345678"); // Provide the (SSID, password); .
-  IPAddress HTTPS_ServerIP= WiFi.softAPIP(); // Obtain the IP of the Server
+  IPAddress HTTPS_ServerIP_SOFT= WiFi.softAPIP(); // Obtain the IP of the Server
 
   // Comment/uncomment this code to run in client mode
-  /*
-  WiFi.begin("<YOUR WIFI NAME>", "<YOUR WIFI PASSWORD>");
+  
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
   while(WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  IPAddress HTTPS_ServerIP = WiFi.localIP();
-  */
+  Serial.println("");
+  IPAddress HTTPS_ServerIP_STATION = WiFi.localIP();
+
   server.begin(); // Start the HTTP Server
   delay(500);
-  Serial.print("\nServer IP is: "); // Print the IP to the monitor window
-  Serial.println(HTTPS_ServerIP);
+  Serial.print("SOFTAP Server IP is: "); // Print the IP to the monitor window
+  Serial.println(HTTPS_ServerIP_SOFT);
+
+  Serial.print("STATION Server IP is: "); // Print the IP to the monitor window
+  Serial.println(HTTPS_ServerIP_STATION);
 }
 
 /*
@@ -39,6 +44,7 @@ void init_wifi_server() {
 */
 char wifi_server_loop()
 {
+  
   WiFiClient client = server.available();
   if (!client) {
     return '_';

@@ -1,6 +1,6 @@
 # NOBOTWars
 
-Once you've checked this repo out you'll need to change the following lines in credentials.c
+Once you've checked this repo out with git you'll need to change the following lines in credentials.c
 
 ```
 #ifndef WIFI_SSID
